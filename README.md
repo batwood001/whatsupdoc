@@ -1,9 +1,11 @@
 # whatsupdoc
 A dead-simple healthcheck service
 
-## running
+## how to use
 
-`python index.py config.json`
+1. Clone this repo
+2. Configure `config.json`
+3. `python index.py config.json`
 
 ## todos
 
