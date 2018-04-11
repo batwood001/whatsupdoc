@@ -1,0 +1,26 @@
+{
+	"interval": 300,
+	"endpoint": "http://myservice.com/health",
+	"failures": 3,
+	"timeout": 5,
+	"notifications": {
+		"email": {
+			"enabled": false,
+			"addresses": [
+				"myemail@email.com"
+			]
+		},
+		"sms": {
+			"enabled": false,
+			"numbers": [
+				9991234567
+			]
+		},
+		"slack": {
+			"enabled": false,
+			"webhooks": [
+				"https://hooks.slack.com/services/abc/xyz/123"
+			]
+		}
+	}
+}
