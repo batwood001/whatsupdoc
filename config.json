@@ -1,4 +1,5 @@
 {
+	"startup_delay": 10,
 	"interval": 300,
 	"endpoint": "http://myservice.com/health",
 	"failures": 3,
@@ -8,19 +9,21 @@
 			"enabled": false,
 			"addresses": [
 				"myemail@email.com"
-			]
+			],
+			"message": "Your service is failing"
 		},
 		"sms": {
 			"enabled": false,
 			"numbers": [
 				9991234567
-			]
+			],
+			"message": "Your service is failing"
 		},
 		"slack": {
-			"enabled": false,
+			"enabled": true,
 			"webhooks": [
-				"https://hooks.slack.com/services/abc/xyz/123"
-			]
+			],
+			"message": "Your service is failing"
 		}
 	}
 }
