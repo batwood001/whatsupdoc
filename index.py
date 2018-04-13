@@ -4,7 +4,6 @@ from types import SimpleNamespace
 
 from src import heartbeat
 
-
 parser = argparse.ArgumentParser(description='Start a healthcheck service')
 parser.add_argument(
 	'config_path',

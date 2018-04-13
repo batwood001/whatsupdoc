@@ -27,7 +27,15 @@ def start(config):
 		if consecutive_failures < config.failures:
 			time.sleep(config.interval)
 
-	send_notifications(config)
+
+	notifs_sent = 0
+	# send at most 50 notifications
+	while notifs_sent < min(config.max_notifications, 50):
+		# send a notification at most every 5 minutes
+		send_notifications(config)
+		notifs_sent += 1
+		time.sleep(max(config.notification_interval, 300))
+		
 
 
 def send_notifications(config):
