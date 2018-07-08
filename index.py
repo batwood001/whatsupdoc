@@ -1,8 +1,7 @@
 import json, argparse, sys, functools
-
 from types import SimpleNamespace
-
 from src import heartbeat
+from src.config import config
 
 parser = argparse.ArgumentParser(description='Start a healthcheck service')
 parser.add_argument(
@@ -14,12 +13,11 @@ parser.add_argument(
 
 args = parser.parse_args()
 
-config = None
 try:
-	config = json.load(open(args.config_path))
-	config = SimpleNamespace(**config)
+	config_json = json.load(open(args.config_path))
+	config.set(SimpleNamespace(**config_json))
 except Exception as e:
 	print('Failed to open', args.config_path, ':', e)
 	sys.exit()
 
-heartbeat.start(config)
+heartbeat.start()

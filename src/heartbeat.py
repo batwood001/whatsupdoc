@@ -1,17 +1,18 @@
 import time, requests
-
 from src.notifications import slack, email, sms
+from src.config import config
 
-def start(config):
-	print('Waiting', config.startup_delay, 'seconds ...')
-	time.sleep(config.startup_delay) 
+def start():
+	c = config.get()
+	print('Waiting', c.startup_delay, 'seconds ...')
+	time.sleep(c.startup_delay) 
 	print('Starting heartbeat ...')
 	consecutive_failures = 0
 
-	while consecutive_failures < config.failures:
+	while consecutive_failures < c.failures:
 		print('Checking ...')
 		try:
-			response = requests.get(url=config.endpoint, timeout=config.timeout)
+			response = requests.get(url=c.endpoint, timeout=c.timeout)
 
 			if response.status_code == 200:
 				consecutive_failures = 0
@@ -24,24 +25,25 @@ def start(config):
 			consecutive_failures += 1
 			print('Fail')
 
-		if consecutive_failures < config.failures:
-			time.sleep(config.interval)
+		if consecutive_failures < c.failures:
+			time.sleep(c.interval)
 
 
 	notifs_sent = 0
 	# send at most 50 notifications
-	while notifs_sent < min(config.max_notifications, 50):
+	while notifs_sent < min(c.max_notifications, 50):
 		# send a notification at most every 5 minutes
-		send_notifications(config)
+		send_notifications()
 		notifs_sent += 1
-		time.sleep(max(config.notification_interval, 300))
+		time.sleep(max(c.notification_interval, 300))
 		
 
 
-def send_notifications(config):
+def send_notifications():
+	c = config.get()
 	for destination in [slack, email, sms]:
 		module_name = destination.__name__.split('.')[-1]
-		if config.notifications[module_name]['enabled']:
-			dest_config = config.notifications[module_name]
+		if c.notifications[module_name]['enabled']:
+			dest_config = c.notifications[module_name]
 			kwargs = {k: dest_config[k] for k in dest_config if k != 'enabled'}
 			destination.send(**kwargs)

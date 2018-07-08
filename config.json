@@ -1,9 +1,11 @@
 {
 	"startup_delay": 10,
-	"interval": 300,
-	"endpoint": "http://myservice.com/health",
-	"failures": 3,
+	"interval": 180,
+	"endpoint": "http://localhost:8080/health",
+	"failures": 5,
 	"timeout": 5,
+	"notification_interval": 1800,
+	"max_notifications": 5,
 	"notifications": {
 		"email": {
 			"enabled": false,
@@ -28,7 +30,8 @@
 	"auth": {
 		"twilio": {
 			"account_sid": "",
-			"auth_token": ""
+			"auth_token": "",
+			"from": ""
 		}
 	}
 }
