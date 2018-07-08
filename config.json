@@ -13,9 +13,8 @@
 			"message": "Your service is failing"
 		},
 		"sms": {
-			"enabled": false,
+			"enabled": true,
 			"numbers": [
-				9991234567
 			],
 			"message": "Your service is failing"
 		},
@@ -24,6 +23,12 @@
 			"webhooks": [
 			],
 			"message": "Your service is failing"
+		}
+	},
+	"auth": {
+		"twilio": {
+			"account_sid": "",
+			"auth_token": ""
 		}
 	}
 }
